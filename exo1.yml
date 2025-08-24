@@ -1,0 +1,20 @@
+openapi: 3.1.0
+info:
+  title: Simple Ping Api
+  description: Simple Ping Api
+  version: 1.0.0
+servers:
+  - url: 'https://localhost:8000'
+paths:
+  /ping:
+    get:
+      responses:
+        '200':
+          description: Returns pong
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: pong
+
+
