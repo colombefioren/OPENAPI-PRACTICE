@@ -1,0 +1,51 @@
+openapi: 3.1.0
+info:
+  title: Task Management
+  description: Task Management
+  version: 1.0.0
+servers:
+  - url: 'https://localhost:8000'
+paths:
+  /tasks:
+    get:
+      responses:
+        '200':
+          description: Return task list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Task'
+      responses:
+        '201':
+          description: Creates task
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        completed:
+          type: boolean
+
+  
