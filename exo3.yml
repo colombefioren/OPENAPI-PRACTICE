@@ -35,6 +35,24 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Task'
+    delete:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+      responses:
+        "200":
+          description: Deletes tasks if its ID is inside the list of ID
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
   /tasks/{id}:
     get:
       parameters:
@@ -60,6 +78,20 @@ paths:
                   message:
                     type: string
                     example: Task not found
+    delete:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deletes a task
+          content:
+            application/json:
+              schema:
+                $ref : "#/components/schemas/Task"
 components:
   schemas:
     Task:
