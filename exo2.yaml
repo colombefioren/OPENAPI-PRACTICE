@@ -31,13 +31,10 @@ paths:
                   properties:
                     id:
                       type: integer
-                      example: 1
                     name:
-                      type: string
-                      example: "Alice"
+                      type: string=
                     email:
-                      type: string
-                      example: "alice@example.com"
+                      type: string=
         '400':
           description: Wrong parameter types
           content:
