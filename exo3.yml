@@ -35,7 +35,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Task'
-  /task/{id}:
+  /tasks/{id}:
     get:
       parameters:
         - name: id
@@ -49,10 +49,8 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
                   $ref: "#/components/schemas/Task"
-        '400':
+        "400":
           description: Task id not found
           content:
             application/json:
@@ -60,9 +58,8 @@ paths:
                 type: object
                 properties:
                   message:
-                    schema:
-                      type: string
-                      example: Task not found
+                    type: string
+                    example: Task not found
 components:
   schemas:
     Task:
