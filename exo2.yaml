@@ -39,6 +39,7 @@ paths:
                       type: string
                       example: "alice@example.com"
         '400':
+          description: Wrong parameter types
           content:
             application/json:
               schema:
