@@ -35,7 +35,34 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Task'
-
+  /task/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Get a task by its ID
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+        '400':
+          description: Task id not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    schema:
+                      type: string
+                      example: Task not found
 components:
   schemas:
     Task:
