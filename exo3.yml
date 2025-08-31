@@ -77,7 +77,10 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: Task not found
+              examples:
+                taskNotFound:
+                  value:
+                    - message: "Task not found"
     delete:
       parameters:
         - name: id
