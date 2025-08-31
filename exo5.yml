@@ -1,16 +1,14 @@
 openapi: 3.1.0
 info:
-  title: Product & Orders API
-  description: API pour gérer les produits et les commandes
+  title: Product & Orders
+  description: Product & Orders
   version: 1.0.0
 servers:
   - url: 'https://localhost:8000'
 
 tags:
   - name: Products
-    description: Endpoints liés aux produits
   - name: Orders
-    description: Endpoints liés aux commandes
 
 paths:
 
@@ -18,13 +16,12 @@ paths:
     get:
       tags:
         - Products
-      summary: Récupérer la liste des produits
       parameters:
         - $ref: '#/components/parameters/LimitParam'
         - $ref: '#/components/parameters/QParam'
       responses:
         '200':
-          description: Liste des produits (peut être vide)
+          description: returns product list
           content:
             application/json:
               schema:
@@ -47,13 +44,12 @@ paths:
     get:
       tags:
         - Orders
-      summary: Récupérer la liste paginée des commandes
       parameters:
         - $ref: '#/components/parameters/PageParam'
         - $ref: '#/components/parameters/SizeParam'
       responses:
         '200':
-          description: Liste des commandes (peut être vide)
+          description: return orders list
           content:
             application/json:
               schema:
@@ -77,7 +73,6 @@ paths:
     post:
       tags:
         - Orders
-      summary: Créer une nouvelle commande (nécessite authentification)
       security:
         - basicAuth: []
       requestBody:
@@ -95,7 +90,7 @@ paths:
                     total_amount: 0.0
       responses:
         '201':
-          description: Commande créée avec succès
+          description: creating an order
           content:
             application/json:
               schema:
