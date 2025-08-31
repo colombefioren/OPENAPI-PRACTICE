@@ -1,0 +1,110 @@
+openapi: 3.1.0
+info:
+  title: Task Management
+  description: Task Management
+  version: 1.0.0
+servers:
+  - url: 'https://localhost:8000'
+paths:
+  /tasks:
+    get:
+      responses:
+        '200':
+          description: Return task list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Task'
+      responses:
+        '201':
+          description: Creates task
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+    delete:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+      responses:
+        "200":
+          description: Deletes tasks if its ID is inside the list of ID
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+  /tasks/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Get a task by its ID
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/Task"
+        "400":
+          description: Task id not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                taskNotFound:
+                  value:
+                    - message: "Task not found"
+    delete:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deletes a task
+          content:
+            application/json:
+              schema:
+                $ref : "#/components/schemas/Task"
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        completed:
+          type: boolean
+
+  

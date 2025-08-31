@@ -1,0 +1,48 @@
+openapi: 3.1.0
+info:
+  title: User Management
+  description: User Management
+  version: 1.0.0
+servers:
+  - url: 'https://localhost:8000'
+paths:
+  /users:
+    get:
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Returns user list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string=
+                    email:
+                      type: string=
+        '400':
+          description: Wrong parameter types
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    
+

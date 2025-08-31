@@ -1,0 +1,178 @@
+openapi: 3.1.0
+info:
+  title: Product & Orders
+  description: Product & Orders
+  version: 1.0.0
+servers:
+  - url: 'https://localhost:8000'
+
+tags:
+  - name: Products
+  - name: Orders
+
+paths:
+
+  /products:
+    get:
+      tags:
+        - Products
+      parameters:
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/QParam'
+      responses:
+        '200':
+          description: returns product list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+              examples:
+                multipleProducts:
+                  value:
+                    - name: "Pomme"
+                      expiration_datetime: "2025-09-01T10:00:00Z"
+                      price: 1000.0
+                    - name: "Banane"
+                      expiration_datetime: "2025-09-10T15:30:00Z"
+                      price: 2000.0
+                emptyList:
+                  value: []
+
+  /orders:
+    get:
+      tags:
+        - Orders
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+      responses:
+        '200':
+          description: return orders list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+              examples:
+                multipleOrders:
+                  value:
+                    - identifier: 7
+                      customer_name: "Colombe"
+                      creation_datetime: "2025-08-25T14:00:00Z"
+                      total_amount: 109500.0
+                    - identifier: 8
+                      customer_name: "Sarah"
+                      creation_datetime: "2025-08-26T09:30:00Z"
+                      total_amount: 100.0
+                emptyList:
+                  value: []
+
+    post:
+      tags:
+        - Orders
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+            examples:
+              newOrder:
+                value:
+                  - identifier: 9
+                    customer_name: "Anaelle"
+                    creation_datetime: "2025-08-27T11:15:00Z"
+                    total_amount: 0.0
+      responses:
+        '201':
+          description: creating an order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+              examples:
+                createdOrder:
+                  value:
+                    - identifier: 9
+                      customer_name: "Anaelle"
+                      creation_datetime: "2025-08-27T11:15:00Z"
+                      total_amount: 0.0
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        name:
+          type: string
+        expiration_datetime:
+          type: string
+          format: date-time
+        price:
+          type: number
+          format: float
+      required:
+        - name
+        - expiration_datetime
+        - price
+
+    Order:
+      type: object
+      properties:
+        identifier:
+          type: integer
+        customer_name:
+          type: string
+        creation_datetime:
+          type: string
+          format: date-time
+        total_amount:
+          type: number
+          format: float
+      required:
+        - identifier
+        - customer_name
+        - creation_datetime
+        - total_amount
+
+  parameters:
+    LimitParam:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        example: 10
+
+    QParam:
+      name: q
+      in: query
+      required: false
+      schema:
+        type: string
+        example: "fruit"
+
+    PageParam:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        example: 1
+
+    SizeParam:
+      name: size
+      in: query
+      required: false
+      schema:
+        type: integer
+        example: 20
+
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
