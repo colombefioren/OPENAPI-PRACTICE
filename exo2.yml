@@ -32,9 +32,9 @@ paths:
                     id:
                       type: integer
                     name:
-                      type: string=
+                      type: string
                     email:
-                      type: string=
+                      type: string
         '400':
           description: Wrong parameter types
           content:
